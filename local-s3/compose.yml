@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      target: builder
+      dockerfile: ./docker/app/Dockerfile
+    environment:
+      AWS_ACCESS_KEY_ID: user
+      AWS_SECRET_ACCESS_KEY: password
+    command: go run main.go
+    volumes:
+      - type: bind
+        source: .
+        target: /go/src/app
+    tty: true
+    ports:
+      - "5050:80"
+  minio:
+    image: minio/minio
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: user
+      MINIO_ROOT_PASSWORD: password
+    entrypoint: bash
+    command: -c "/opt/bin/minio server /export --address :9999 --console-address :9001"
+    volumes:
+      - type: bind
+        source: ./docker/minio/data
+        target: /export
+    ports:
+      - 9000:9999
+      - 9001:9001
+volumes:
+  minio:
