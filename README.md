@@ -25,3 +25,17 @@ Get a list of objects under dir1/ directory.
 ```console
 curl -XGET http://localhost:5050/api/v1/cats
 ```
+
+AWS CLI
+
+```console
+$ aws configure --profile minio
+AWS Access Key ID [None]: user
+AWS Secret Access Key [None]: password
+Default region name [None]: ap-northeast-1
+Default output format [None]: json
+```
+
+```console
+$ aws --profile minio --endpoint-url http://localhost:9000/ s3 cp cat2.jpg s3://local-bucket/dir1/
+```
