@@ -1,2 +1,2 @@
 .DS_Store
-.minio.sys/*
+local-s3/docker/minio/data/.minio.*
