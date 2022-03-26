@@ -7,8 +7,11 @@
 ### Usage
 
 ```terminal
-cd local-s3
-docker compose up -d
+$ cd local-s3
+```
+
+```console
+$ docker compose up -d
 ```
 
 The minio console appears when you access `http://localhost:9001`
@@ -23,7 +26,8 @@ https://user-images.githubusercontent.com/58158037/160244658-19a3049b-c69f-4ce0-
 Get a list of objects under dir1/ directory.
 
 ```console
-curl -XGET http://localhost:5050/api/v1/cats
+$ curl -XGET http://localhost:5050/api/v1/cats
+["dir1/cat.jpg"]
 ```
 
 AWS CLI
