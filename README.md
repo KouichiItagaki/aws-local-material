@@ -6,11 +6,11 @@
 
 ### Usage
 
-```terminal
+```
 $ cd local-s3
 ```
 
-```console
+```
 $ docker compose up -d
 ```
 
@@ -25,14 +25,14 @@ https://user-images.githubusercontent.com/58158037/160244658-19a3049b-c69f-4ce0-
 
 Get a list of objects under dir1/ directory.
 
-```console
+```
 $ curl -XGET http://localhost:5050/api/v1/cats
 ["dir1/cat.jpg"]
 ```
 
-AWS CLI
+#### AWS CLI
 
-```console
+```
 $ aws configure --profile minio
 AWS Access Key ID [None]: user
 AWS Secret Access Key [None]: password
@@ -40,6 +40,49 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: json
 ```
 
-```console
+```
 $ aws --profile minio --endpoint-url http://localhost:9000/ s3 cp cat2.jpg s3://local-bucket/dir1/
+```
+
+## local-sqs
+
+### Usage
+
+```
+$ cd local-sqs
+```
+
+```
+$ docker compose up -d
+```
+
+#### AWS CLI
+
+List queues
+
+```
+$ aws sqs list-queues --endpoint-url 'http://localhost:9324'
+{
+    "QueueUrls": [
+        "http://localhost:9324/000000000000/queue1-dead-letters",
+        "http://localhost:9324/000000000000/queue1"
+    ]
+}
+```
+
+Send message
+
+```
+$ aws sqs send-message \
+    --queue-url "http://localhost:9324/000000000000/queue1" \
+    --endpoint-url "http://localhost:9324" \
+    --message-body "Hello ElasticMQ!"
+```
+
+Receive message
+
+```
+aws sqs receive-message \
+    --queue-url "http://localhost:9324/000000000000/queue1" \
+    --endpoint-url "http://localhost:9324"
 ```
