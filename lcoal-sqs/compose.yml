@@ -1,0 +1,10 @@
+services:
+  elasticmq:
+    image: softwaremill/elasticmq
+    container_name: elasticmq
+    ports:
+      - 9324:9324
+    volumes:
+      - type: bind
+        source: ./config/elasticmq.conf
+        target: /opt/elasticmq.conf
